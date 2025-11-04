@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react'
-import Home from './pages/Home'
 import Loading from './pages/Loading'
+import { Navbar } from './components/ui/Navbar'
+import Home from './pages/Home'
+import About from './pages/About'
+import Services from './pages/Services'
+import Experinces from './pages/Experinces'
+import Projects from './pages/Projects'
+import Contact from './pages/Contact'
+import Footer from './components/ui/Footer'
+import MagicBento from './components/MagicBento'
 
 import './App.css'
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [showHome, setShowHome] = useState(false);
   const [fadeInHome, setFadeInHome] = useState(false);
 
   useEffect(() => {
@@ -15,31 +22,38 @@ function App() {
       setFadeOut(true);
       setTimeout(() => {
         setLoading(false);
-        setShowHome(true);
         setTimeout(() => {
           setFadeInHome(true);
-        }, 50); // slight delay to ensure Home is mounted before fade-in
-      }, 900); // matches fade out duration
+        }, 50);
+      }, 900);
     }, 4500);
     return () => clearTimeout(timer);
   }, []);
 
+  if (loading) {
+    return (
+      <div className={`w-full h-screen transition-opacity duration-900 ease-in-out ${
+        fadeOut ? 'opacity-0' : 'opacity-100'
+      }`}>
+        <Loading />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-screen overflow-hidden bg-black relative">
-      {loading && (
-        <div className={`absolute inset-0 transition-opacity duration-900 ease-in-out ${
-          fadeOut ? 'opacity-0' : 'opacity-100'
-        }`}>
-          <Loading />
-        </div>
-      )}
-      {showHome && (
-        <div className={`absolute inset-0 transition-opacity duration-900 ease-in-out ${
-          fadeInHome ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <Home />
-        </div>
-      )}
+    <div className={`min-h-screen bg-black transition-opacity duration-900 ease-in-out ${
+      fadeInHome ? 'opacity-100' : 'opacity-0'
+    }`}>
+      <Navbar />
+      <main className="pt-16">
+        <Home />
+        <About />
+        <Services />
+        <Experinces />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   )
 }

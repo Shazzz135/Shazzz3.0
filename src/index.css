@@ -269,15 +269,11 @@
 
 /* Additional layer for maximum specificity */
 @layer utilities {
-  .force-black-bg {
+  /* Apply to any page wrapper */
+  [data-page], [data-route], .page, .route, .home, .homepage {
     background-color: black !important;
     background-image: none !important;
     background: black !important;
-  }
-  
-  /* Apply to any page wrapper */
-  [data-page], [data-route], .page, .route, .home, .homepage {
-    @apply force-black-bg;
     min-height: 100vh !important;
   }
 
