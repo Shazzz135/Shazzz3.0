@@ -1,5 +1,11 @@
+/* Remove any background color overrides */
+* {
+  /* Allow transparent backgrounds for light rays to show */
+}
+
 #root {
   width: 100%;
   height: 100%;
+  background-color: transparent;
 }
 

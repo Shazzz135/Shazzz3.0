@@ -111,13 +111,12 @@
 }
 
 @layer base {
-  html, body {
+  html, body, #root {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    @apply bg-black text-white;
-    background-color: black !important;
+    background-color: #18181b;
   }
   
   * {
@@ -126,61 +125,20 @@
   }
   
   body {
-    @apply bg-black text-foreground;
+    @apply text-white text-foreground;
     font-family: system-ui, -apple-system, sans-serif;
-    background-color: black !important;
   }
 
-  /* Force black background on ALL elements - more aggressive */
-  *, *::before, *::after {
-    background-color: black !important;
-  }
-
-  /* Override ANY background color classes */
-  [class*="bg-"]:not(.bg-black):not([class*="bg-transparent"]) {
-    background-color: black !important;
-  }
-
-  /* Remove gradient backgrounds */
-  [class*="bg-gradient"], [style*="gradient"] {
-    background: black !important;
-    background-image: none !important;
-  }
-
-  /* Ensure black background for ALL page elements */
-  html, body, main, section, article, aside, header, footer, nav, div, span, p, h1, h2, h3, h4, h5, h6 {
-    background-color: black !important;
-  }
-
-  /* Page and app containers - comprehensive coverage */
-  #root, #__next, .app, .page, [data-page], [role="main"], [data-testid], .layout, .wrapper, .container-fluid {
-    background-color: black !important;
-    min-height: 100vh;
-  }
-
-  /* React Router and Next.js page wrappers */
-  .route, .page-wrapper, .layout-wrapper, .main-content {
-    background-color: black !important;
-    min-height: 100vh;
-  }
-
-  /* Common component containers */
-  .content, .main-container, .app-container, .site-wrapper {
-    background-color: black !important;
-  }
-
-  /* Mobile-first responsive utilities */
+  /* Responsive utilities */
   .container {
     @apply w-full px-4 mx-auto;
     @apply sm:px-6 md:px-8 lg:max-w-7xl;
   }
 
-  /* Responsive text sizing */
   .responsive-text {
     @apply text-sm sm:text-base md:text-lg lg:text-xl;
   }
 
-  /* Responsive spacing */
   .responsive-padding {
     @apply p-2 sm:p-4 md:p-6 lg:p-8;
   }
@@ -189,7 +147,6 @@
     @apply m-2 sm:m-4 md:m-6 lg:m-8;
   }
 
-  /* Mobile navigation helpers */
   .mobile-nav {
     @apply block sm:hidden;
   }
@@ -198,22 +155,18 @@
     @apply hidden sm:block;
   }
 
-  /* Responsive grid */
   .responsive-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
   }
 
-  /* Touch-friendly buttons */
   .touch-button {
     @apply min-h-[44px] min-w-[44px] p-3 sm:p-2;
   }
 
-  /* Responsive images */
   img {
     @apply max-w-full h-auto;
   }
 
-  /* Mobile-first flexbox utilities */
   .mobile-stack {
     @apply flex flex-col sm:flex-row;
   }
@@ -222,25 +175,6 @@
     @apply text-center sm:text-left;
   }
 
-  /* Ensure all backgrounds are black */
-  body, html, #root, .app {
-    @apply bg-black;
-    background-color: black !important;
-  }
-
-  /* Override ANY white/light backgrounds - expanded list */
-  .bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-neutral-50, .bg-stone-50, .bg-zinc-50,
-  .bg-red-50, .bg-blue-50, .bg-green-50, .bg-yellow-50, .bg-purple-50, .bg-pink-50, .bg-indigo-50,
-  .bg-gray-200, .bg-gray-300, .bg-slate-100, .bg-slate-200 {
-    background-color: black !important;
-  }
-
-  /* Remove any CSS custom properties that might override background */
-  * {
-    --tw-bg-opacity: 1 !important;
-  }
-
-  /* Mobile viewport handling */
   @media screen and (max-width: 640px) {
     body {
       overflow-x: hidden;
@@ -252,33 +186,15 @@
     }
   }
 
-  /* Tablet adjustments */
   @media screen and (min-width: 641px) and (max-width: 1024px) {
     .tablet-adjust {
       @apply px-6 py-4;
     }
   }
 
-  /* Desktop optimizations */
   @media screen and (min-width: 1025px) {
     .desktop-optimize {
       @apply px-8 py-6;
     }
-  }
-}
-
-/* Additional layer for maximum specificity */
-@layer utilities {
-  /* Apply to any page wrapper */
-  [data-page], [data-route], .page, .route, .home, .homepage {
-    background-color: black !important;
-    background-image: none !important;
-    background: black !important;
-    min-height: 100vh !important;
-  }
-
-  /* Override any potential conflicting utilities */
-  .bg-inherit, .bg-current, .bg-transparent {
-    background-color: black !important;
   }
 }
