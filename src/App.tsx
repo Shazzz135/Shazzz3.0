@@ -8,7 +8,6 @@ import Experinces from './pages/Experinces'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import Footer from './components/ui/Footer'
-import MagicBento from './components/MagicBento'
 
 import './App.css'
 
