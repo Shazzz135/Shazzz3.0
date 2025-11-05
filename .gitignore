@@ -33,6 +33,3 @@ dist-ssr
 .env.development
 .env.test
 .env.*
-
-# Server files with sensitive data
-src/server/index.js

@@ -43,12 +43,8 @@ const Contact: React.FC = () => {
     setLoading(true);
     
     try {
-      // Use environment variable for API URL
-      const apiUrl = import.meta.env.PROD 
-        ? '/api/contact'  // Production URL (relative path)
-        : 'http://localhost:3001/api/contact';  // Development URL
-        
-      const res = await fetch(apiUrl, {
+      // Simplified API URL for Vercel deployment
+      const res = await fetch('/api/contact', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
