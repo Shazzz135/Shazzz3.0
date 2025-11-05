@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import headshotImage from "../images/headshot.png";
 
 const About: React.FC = () => {
   // Use CSS classes for responsive font size instead of JS
@@ -34,7 +35,7 @@ const About: React.FC = () => {
         {/* Profile Card */}
         <div className="bg-transparent border-2 border-[#5b048a] rounded-2xl shadow-xl p-10 sm:p-8 xs:p-6 flex flex-col items-center w-full max-w-md mb-8 md:mb-0 md:h-full md:min-h-[420px]">
           <img
-            src="src/images/headshot.png"
+            src={headshotImage}
             alt="Nick Shahbaz"
             className="w-28 h-28 rounded-lg mb-6 object-cover object-center outline outline-4 outline-[#32004f] bg-gray-900 transition-all duration-300 hover:scale-105 hover:outline-[#dfa2e3] hover:shadow-lg"
             style={{ width: "7rem", height: "7rem" }}
