@@ -33,7 +33,7 @@ const RevealText: React.FC = () => {
     // Shuffle symbols much faster (every 20ms)
     const shuffleInterval = setInterval(() => {
       setDisplay(prev =>
-        prev.map((char, i) =>
+        prev.map((_, i) =>
           i < revealed ? TYPING_TEXT[i] : SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
         )
       );
