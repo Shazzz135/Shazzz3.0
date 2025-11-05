@@ -27,8 +27,6 @@ interface LightRaysProps {
   className?: string;
 }
 
-const DEFAULT_COLOR = '#ffffff';
-
 const hexToRgb = (hex: string): [number, number, number] => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1];
@@ -83,18 +81,18 @@ interface Uniforms {
 
 const LightRays: React.FC<LightRaysProps> = ({
   raysOrigin = 'top-center',
-  raysColor = DEFAULT_COLOR,
-  raysSpeed = 1,
-  lightSpread = 1,
-  rayLength = 2,
+  raysColor = '#480385',
+  raysSpeed = 1.1,
+  lightSpread = 0.5,
+  rayLength = 2.6,
   pulsating = false,
-  fadeDistance = 1.0,
-  saturation = 1.0,
+  fadeDistance = 1,
+  saturation = 2,
   followMouse = true,
-  mouseInfluence = 0.1,
-  noiseAmount = 0.0,
-  distortion = 0.0,
-  className = ''
+  mouseInfluence = 0.5,
+  noiseAmount = 0.28,
+  distortion = 0,
+  className = 'custom-rays'
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const uniformsRef = useRef<Uniforms | null>(null);

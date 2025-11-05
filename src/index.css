@@ -116,7 +116,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #18181b;
+    background-color: rgb(10, 10, 10);
   }
   
   * {
