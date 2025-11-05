@@ -1,96 +1,98 @@
 export default async function handler(req, res) {
+  // Set CORS headers first
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
   try {
-    // Add CORS headers
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
-
-    if (req.method === 'OPTIONS') {
-      return res.status(200).json({ message: 'OK' });
-    }
-
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method Not Allowed" });
-    }
-
-    // Dynamic import for ES modules compatibility
-    const { default: nodemailer } = await import('nodemailer');
-
-    console.log('Environment check:', {
-      hasGmailUser: !!process.env.GMAIL_USER,
-      hasGmailPassword: !!process.env.GMAIL_APP_PASSWORD
+    // Import nodemailer dynamically
+    const nodemailer = await import('nodemailer');
+    
+    // Log environment for debugging
+    console.log('API called, env vars present:', {
+      hasUser: !!process.env.GMAIL_USER,
+      hasPassword: !!process.env.GMAIL_APP_PASSWORD
     });
 
+    // Check environment variables
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error('Missing environment variables');
-      return res.status(500).json({ error: "Server configuration error" });
+      return res.status(500).json({ 
+        error: 'Server configuration error',
+        details: 'Missing email credentials'
+      });
     }
 
+    // Validate request body
     const { firstName, lastName, email, message } = req.body || {};
-    if (
-      !firstName || !lastName || !email || !message ||
-      typeof firstName !== "string" ||
-      typeof lastName !== "string" ||
-      typeof email !== "string" ||
-      typeof message !== "string"
-    ) {
-      return res.status(400).json({ error: "Missing or invalid fields" });
+    
+    if (!firstName || !lastName || !email || !message) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        required: ['firstName', 'lastName', 'email', 'message']
+      });
     }
 
-    // Use Gmail SMTP with app password from environment
-    const transporter = nodemailer.createTransporter({
+    // Create transporter with explicit configuration
+    const transporter = nodemailer.default.createTransporter({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
+        pass: process.env.GMAIL_APP_PASSWORD.replace(/\s/g, '') // Remove any spaces
       }
     });
 
+    // Configure email
     const mailOptions = {
       from: process.env.GMAIL_USER,
       to: process.env.GMAIL_USER,
-      subject: `Message From ${firstName} ${lastName} - Website Contact`,
-      text: `You received a new message from your website contact form:\n\nFrom: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`,
+      subject: `Website Contact: ${firstName} ${lastName}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px;">
-          <h2 style="color: #333;">New Website Contact Message</h2>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
-            <p><strong>From:</strong> ${firstName} ${lastName}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Message:</strong></p>
-            <div style="background: white; padding: 15px; border-radius: 4px; margin-top: 10px;">
-              ${message}
-            </div>
-          </div>
-          <p style="margin-top: 20px; color: #666; font-size: 12px;">
-            This message was sent from your website contact form.
-          </p>
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <div style="border-left: 3px solid #ccc; padding-left: 15px; margin: 10px 0;">
+          ${message}
         </div>
       `,
       replyTo: email
     };
 
-    console.log('Attempting to send email...');
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info.messageId);
+    // Send email
+    const result = await transporter.sendMail(mailOptions);
     
-    return res.status(200).json({ 
-      success: true, 
-      messageId: info.messageId,
-      message: 'Email sent successfully'
+    console.log('Email sent successfully:', result.messageId);
+    
+    res.status(200).json({
+      success: true,
+      message: 'Email sent successfully',
+      messageId: result.messageId
     });
+
+  } catch (error) {
+    console.error('API Error:', error);
     
-  } catch (err) {
-    console.error('Email error:', err);
-    return res.status(500).json({ 
-      error: "Email send failed", 
-      details: err?.message || 'Unknown error',
-      code: err?.code || 'UNKNOWN_ERROR'
+    res.status(500).json({
+      error: 'Failed to send email',
+      details: error.message,
+      code: error.code || 'UNKNOWN_ERROR'
     });
   }
 }
