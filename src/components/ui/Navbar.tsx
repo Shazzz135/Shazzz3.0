@@ -41,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   };
 
   const scrollToSection = (sectionIndex: number) => {
-    // Find all main page divs within the main element
+    // scroll immediately
     const mainElement = document.querySelector('main');
     if (mainElement) {
       const pageDivs = mainElement.children;
@@ -63,23 +63,24 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
           .navbar-star-border {
             position: relative;
             overflow: hidden;
+            background: transparent !important;
           }
-          
           .navbar-star-border::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
+            pointer-events: none;
             background: linear-gradient(90deg, 
               transparent 0%, 
               #480385 10%, 
-              #8b5fbf 20%, 
+              #480385 20%, 
               transparent 30%,
               transparent 40%,
               #480385 50%,
-              #8b5fbf 60%,
+              #480385 60%,
               transparent 70%,
               transparent 80%,
               #480385 90%,
@@ -87,52 +88,39 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
             );
             background-size: 200% 100%;
             animation: starMove 4s linear infinite;
+            z-index: 2;
           }
-          
           @keyframes starMove {
             0% { background-position: 0% 0%; }
             100% { background-position: 200% 0%; }
           }
-
           .nav-link, .social-link {
             position: relative;
             transition: all 0.3s ease;
+            color: #fff !important;
           }
-
           .nav-link:hover, .social-link:hover {
-            transform: rotate(-5deg);
-            box-shadow: 0 0 15px rgba(139, 95, 191, 0.8);
-            background: rgba(139, 95, 191, 0.1);
+            box-shadow: 0 0 15px #480385;
+            background: rgba(72, 3, 133, 0.12);
             border-radius: 8px;
+            color: #fff !important;
           }
-
-          .mobile-menu-btn:hover {
-            transform: rotate(-5deg);
-            box-shadow: 0 0 15px rgba(139, 95, 191, 0.8);
-            background: rgba(139, 95, 191, 0.1);
-            transition: all 0.3s ease;
+          .nav-link:hover svg, .social-link:hover svg {
+            color: #480385 !important;
+            fill: #480385 !important;
           }
-
-          .mobile-nav-link {
-            transition: all 0.3s ease;
-          }
-
-          .mobile-nav-link:hover {
-            transform: rotate(-5deg);
-            box-shadow: 0 0 15px rgba(139, 95, 191, 0.8);
-            background: rgba(139, 95, 191, 0.1);
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin: 4px 0;
+          .social-link.linkedin:hover svg {
+            color: #480385 !important;
+            fill: #480385 !important;
           }
         `}
       </style>
       <nav 
         className={`fixed top-0 left-0 right-0 z-[9999] navbar-star-border transition-all duration-300 ${className}`} 
         style={{ 
-          backgroundColor: `rgba(0, 0, 0, ${getBackgroundOpacity()})`,
-          backdropFilter: scrolled ? 'blur(10px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
+          backgroundColor: `rgba(72, 3, 133, 0)`,
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           position: 'fixed',
           top: 0,
           width: '100%'
@@ -159,10 +147,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="social-link"
+                className="social-link linkedin"
               >
                 {/* LinkedIn SVG */}
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-gray-300 hover:text-blue-500 transition-colors">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-gray-300 transition-colors">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>

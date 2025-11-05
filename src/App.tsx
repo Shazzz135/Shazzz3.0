@@ -72,24 +72,12 @@ function App() {
       {/* Main content with proper spacing */}
       <div className="relative" style={{ zIndex: 10 }}>
         <main>
-          <div className="fade-out-in">
-            <Home />
-          </div>
-          <div className="fade-out-in">
-            <About />
-          </div>
-          <div className="fade-out-in">
-            <Services />
-          </div>
-          <div className="fade-out-in">
-            <Experinces />
-          </div>
-          <div className="fade-out-in">
-            <Projects />
-          </div>
-          <div className="fade-out-in">
-            <Contact />
-          </div>
+          <div className="fade-out-in"><Home /></div>
+          <div className="fade-out-in"><About /></div>
+          <div className="fade-out-in"><Services /></div>
+          <div className="fade-out-in"><Experinces /></div>
+          <div className="fade-out-in"><Projects /></div>
+          <div className="fade-out-in"><Contact /></div>
         </main>
         <Footer />
       </div>

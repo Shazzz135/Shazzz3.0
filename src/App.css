@@ -9,3 +9,8 @@
   background-color: transparent;
 }
 
+.tension-transition {
+  transition: transform 0.42s cubic-bezier(0.8,0.1,0.2,1), filter 0.42s;
+  will-change: transform, filter;
+}
+
