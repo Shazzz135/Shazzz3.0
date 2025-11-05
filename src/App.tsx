@@ -16,7 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [fadeInHome, setFadeInHome] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,34 +29,6 @@ function App() {
     }, 4500);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const getPageContentOpacity = (pageIndex: number) => {
-    const pageHeight = window.innerHeight;
-    const pageStart = pageIndex * pageHeight;
-    const fadeDistance = 140;
-    const fadeOffset = 160; // start fading a bit earlier
-    
-    // Current page position relative to viewport
-    const currentPageTop = pageStart - scrollY;
-    
-    // If page is moving up towards navbar, but start fade later
-    if (currentPageTop < -fadeOffset && currentPageTop > -(fadeDistance + fadeOffset)) {
-      return Math.max(0, 1 + (currentPageTop + fadeOffset) / fadeDistance);
-    }
-    
-    // If page is fully above viewport
-    if (currentPageTop <= -(fadeDistance + fadeOffset)) {
-      return 0;
-    }
-    
-    return 1;
-  };
 
   if (loading) {
     return (
@@ -73,7 +44,15 @@ function App() {
     <div className={`min-h-screen relative transition-opacity duration-900 ease-in-out ${
       fadeInHome ? 'opacity-100' : 'opacity-0'
     }`} style={{ backgroundColor: 'rgb(10, 10, 10)' }}>
-      <div style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0 }}>
+      {/* Fixed background light rays */}
+      <div style={{ 
+        width: '100%', 
+        height: '100vh', 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        zIndex: 1 
+      }}>
         <LightRays 
           raysColor="#480385"
           raysSpeed={1.1}
@@ -86,25 +65,29 @@ function App() {
           distortion={0}
         />
       </div>
+      
+      {/* Fixed navbar at top */}
       <Navbar />
-      <div className="relative z-10">
-        <main className="pt-16">
-          <div style={{ opacity: getPageContentOpacity(0), transition: 'opacity 0.3s ease' }}>
+      
+      {/* Main content with proper spacing */}
+      <div className="relative" style={{ zIndex: 10 }}>
+        <main>
+          <div>
             <Home />
           </div>
-          <div style={{ opacity: getPageContentOpacity(1), transition: 'opacity 0.3s ease' }}>
+          <div>
             <About />
           </div>
-          <div style={{ opacity: getPageContentOpacity(2), transition: 'opacity 0.3s ease' }}>
+          <div>
             <Services />
           </div>
-          <div style={{ opacity: getPageContentOpacity(3), transition: 'opacity 0.3s ease' }}>
+          <div>
             <Experinces />
           </div>
-          <div style={{ opacity: getPageContentOpacity(4), transition: 'opacity 0.3s ease' }}>
+          <div>
             <Projects />
           </div>
-          <div style={{ opacity: getPageContentOpacity(5), transition: 'opacity 0.3s ease' }}>
+          <div>
             <Contact />
           </div>
         </main>
