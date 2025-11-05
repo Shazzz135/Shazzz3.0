@@ -14,6 +14,16 @@
   will-change: transform, filter;
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1);}
+  50% { opacity: 0.7; transform: scale(1.07);}
+}
+
+@keyframes colorPulse {
+  0%, 100% { color: #32004f; }
+  50% { color: #5b048a; }
+}
+
 @media (max-width: 640px) {
   /* Scale headings and text for mobile */
   h1, .text-4xl, .text-3xl, .text-2xl {
@@ -35,17 +45,56 @@
     min-height: 80vh !important;
   }
   .px-4 {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
   }
-  .pt-16 {
-    padding-top: 2rem !important;
+  .sm\:px-8 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
   }
-  .mb-4, .mb-2 {
-    margin-bottom: 0.75rem !important;
+  .xs\:p-6 {
+    padding: 1.5rem !important;
   }
-  .max-w-xl {
-    max-width: 95vw !important;
+  .p-10 {
+    padding: 2.5rem !important;
+  }
+  .mb-8 {
+    margin-bottom: 2rem !important;
+  }
+  .mb-6 {
+    margin-bottom: 1.5rem !important;
+  }
+  .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+  .py-3 {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  .px-6 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  .px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .fade-out-in {
+    margin-bottom: 2.5rem !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  section {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .xs\:p-4 {
+    padding: 1rem !important;
   }
 }
 

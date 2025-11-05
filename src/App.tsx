@@ -57,8 +57,8 @@ function App() {
           raysColor="#480385"
           raysSpeed={1.1}
           lightSpread={0.25}
-          rayLength={5.0}
-          fadeDistance={1}
+          rayLength={window.innerWidth < 640 ? 9.0 : 5.0}
+          fadeDistance={2}
           saturation={2}
           mouseInfluence={0.5}
           noiseAmount={0.28}
