@@ -14,7 +14,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'esbuild'
+    minify: 'esbuild',
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          three: ['three'],
+          ogl: ['ogl']
+        }
+      }
+    }
   },
   server: {
     port: 5173,

@@ -1,25 +1,25 @@
-import nodemailer from "nodemailer";
-
 export default async function handler(req, res) {
   try {
     // Add CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader('Content-Type', 'application/json');
     res.setHeader(
       'Access-Control-Allow-Headers',
       'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
 
     if (req.method === 'OPTIONS') {
-      res.status(200).json({ message: 'OK' });
-      return;
+      return res.status(200).json({ message: 'OK' });
     }
 
     if (req.method !== "POST") {
-      res.status(405).json({ error: "Method Not Allowed" });
-      return;
+      return res.status(405).json({ error: "Method Not Allowed" });
     }
+
+    // Dynamic import for ES modules compatibility
+    const { default: nodemailer } = await import('nodemailer');
 
     console.log('Environment check:', {
       hasGmailUser: !!process.env.GMAIL_USER,
@@ -28,11 +28,10 @@ export default async function handler(req, res) {
 
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
       console.error('Missing environment variables');
-      res.status(500).json({ error: "Server configuration error" });
-      return;
+      return res.status(500).json({ error: "Server configuration error" });
     }
 
-    const { firstName, lastName, email, message } = req.body;
+    const { firstName, lastName, email, message } = req.body || {};
     if (
       !firstName || !lastName || !email || !message ||
       typeof firstName !== "string" ||
@@ -40,8 +39,7 @@ export default async function handler(req, res) {
       typeof email !== "string" ||
       typeof message !== "string"
     ) {
-      res.status(400).json({ error: "Missing or invalid fields" });
-      return;
+      return res.status(400).json({ error: "Missing or invalid fields" });
     }
 
     // Use Gmail SMTP with app password from environment
@@ -81,7 +79,7 @@ export default async function handler(req, res) {
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent successfully:', info.messageId);
     
-    res.status(200).json({ 
+    return res.status(200).json({ 
       success: true, 
       messageId: info.messageId,
       message: 'Email sent successfully'
@@ -89,7 +87,7 @@ export default async function handler(req, res) {
     
   } catch (err) {
     console.error('Email error:', err);
-    res.status(500).json({ 
+    return res.status(500).json({ 
       error: "Email send failed", 
       details: err?.message || 'Unknown error',
       code: err?.code || 'UNKNOWN_ERROR'
