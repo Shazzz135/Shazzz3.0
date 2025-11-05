@@ -53,7 +53,7 @@ interface LiquidEtherWebGL {
   dispose: () => void;
 }
 
-const defaultColors = ['#19007fff', '#1c19e6ff', '#c9b9ffff'];
+const defaultColors = ['#480385', '#480385', '#72017aff'];
 
 export default function LiquidEther({
   mouseForce = 20,

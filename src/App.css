@@ -14,3 +14,38 @@
   will-change: transform, filter;
 }
 
+@media (max-width: 640px) {
+  /* Scale headings and text for mobile */
+  h1, .text-4xl, .text-3xl, .text-2xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  h2, .text-2xl, .text-xl {
+    font-size: 1.2rem !important;
+    line-height: 1.7rem !important;
+  }
+  p, .text-lg, .text-base {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+  .font-bold {
+    font-weight: 600 !important;
+  }
+  .min-h-screen {
+    min-height: 80vh !important;
+  }
+  .px-4 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .pt-16 {
+    padding-top: 2rem !important;
+  }
+  .mb-4, .mb-2 {
+    margin-bottom: 0.75rem !important;
+  }
+  .max-w-xl {
+    max-width: 95vw !important;
+  }
+}
+

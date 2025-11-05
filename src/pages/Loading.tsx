@@ -42,7 +42,17 @@ const RevealText: React.FC = () => {
   }, [revealed]);
 
   return (
-    <span className="text-3xl font-bold text-white drop-shadow-lg font-mono tracking-widest">
+    <span
+      className="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg font-mono tracking-widest"
+      style={{
+        // Extra small screens
+        fontSize: 'clamp(1.2rem, 7vw, 2.5rem)',
+        wordBreak: 'break-word',
+        textAlign: 'center',
+        width: '100%',
+        display: 'block'
+      }}
+    >
       {display.join("")}
     </span>
   );
@@ -50,12 +60,12 @@ const RevealText: React.FC = () => {
 
 const Loading: React.FC = () => {
   return (
-    <div className="w-full h-full relative flex items-center justify-center">
+    <div className="w-full h-full relative flex items-center justify-center" style={{ background: 'transparent' }}>
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <RevealText />
       </div>
       <LiquidEther
-        colors={[ '#5b048a', '#a330ba', '#dfa2e3' ]}
+        colors={['#a330ba', '#5b048a', '#dfa2e3']}
         mouseForce={20}
         cursorSize={100}
         isViscous={false}
