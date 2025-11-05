@@ -32,7 +32,7 @@ const About: React.FC = () => {
       </h1>
       <div className="flex flex-col md:flex-row gap-8 items-center justify-center w-full max-w-3xl px-4 sm:px-8 md:px-2">
         {/* Profile Card */}
-        <div className="bg-[#181028] rounded-2xl shadow-xl p-10 sm:p-8 xs:p-6 flex flex-col items-center w-full max-w-md mb-8 md:mb-0 md:h-full md:min-h-[420px]">
+        <div className="bg-transparent border-2 border-[#5b048a] rounded-2xl shadow-xl p-10 sm:p-8 xs:p-6 flex flex-col items-center w-full max-w-md mb-8 md:mb-0 md:h-full md:min-h-[420px]">
           <img
             src="src/images/headshot.png"
             alt="Nick Shahbaz"
@@ -51,7 +51,7 @@ const About: React.FC = () => {
           </span>
         </div>
         {/* Skills Card */}
-        <div className="bg-[#181028] rounded-2xl shadow-xl p-10 sm:p-8 xs:p-6 flex flex-col items-center w-full max-w-md md:h-full md:min-h-[420px]">
+        <div className="bg-transparent border-2 border-[#5b048a] rounded-2xl shadow-xl p-10 sm:p-8 xs:p-6 flex flex-col items-center w-full max-w-md md:h-full md:min-h-[420px]">
           <h2 className="text-xl font-semibold text-[#5b048a] mb-4 text-center w-full">
             Tech Skills
           </h2>

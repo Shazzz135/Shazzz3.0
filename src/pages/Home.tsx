@@ -17,7 +17,7 @@ const Home: React.FC = () => {
             Nick Shahbaz
           </span>
         </h1>
-        <p className="text-2xl md:text-4xl font-bold">WLU Undergraduate Student of CS</p>
+        <p className="text-2xl md:text-4xl font-bold">Web Developer</p>
       </div>
     </section>
   );

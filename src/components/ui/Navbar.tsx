@@ -6,42 +6,12 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrollY(currentScrollY);
-      
-      // Consider navbar "scrolled" when user has scrolled down at least 10px
-      const isScrolled = currentScrollY > 10;
-      setScrolled(isScrolled);
-    };
-
-    // Initial check
-    handleScroll();
-    
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Calculate background opacity based on scroll position
-  const getBackgroundOpacity = () => {
-    if (scrollY === 0) return 0;
-    const maxOpacity = 0.95;
-    const fadeDistance = 100;
-    return Math.min(maxOpacity, (scrollY / fadeDistance) * maxOpacity);
-  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const scrollToSection = (sectionIndex: number) => {
-    // scroll immediately
     const mainElement = document.querySelector('main');
     if (mainElement) {
       const pageDivs = mainElement.children;
@@ -53,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
         });
       }
     }
-    setIsMobileMenuOpen(false); // Close mobile menu after click
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -181,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
                   Services
                 </button>
                 <button onClick={() => scrollToSection(3)} className="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Experiences
+                  Education
                 </button>
                 <button onClick={() => scrollToSection(4)} className="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                   Projects
@@ -224,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
                   Services
                 </button>
                 <button onClick={() => scrollToSection(3)} className="mobile-nav-link text-gray-300 hover:text-white block text-sm font-medium">
-                  Experiences
+                  Education
                 </button>
                 <button onClick={() => scrollToSection(4)} className="mobile-nav-link text-gray-300 hover:text-white block text-sm font-medium">
                   Projects

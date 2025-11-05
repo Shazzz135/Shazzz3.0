@@ -4,7 +4,7 @@ import { Navbar } from './components/ui/Navbar'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
-import Experinces from './pages/Experinces'
+import Education from './pages/Education'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import Footer from './components/ui/Footer'
@@ -75,7 +75,7 @@ function App() {
           <div className="fade-out-in"><Home /></div>
           <div className="fade-out-in"><About /></div>
           <div className="fade-out-in"><Services /></div>
-          <div className="fade-out-in"><Experinces /></div>
+          <div className="fade-out-in"><Education /></div>
           <div className="fade-out-in"><Projects /></div>
           <div className="fade-out-in"><Contact /></div>
         </main>
