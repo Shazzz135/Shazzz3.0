@@ -49,8 +49,8 @@ export default async function handler(req, res) {
       });
     }
 
-    // Create transporter with explicit configuration
-    const transporter = nodemailer.default.createTransporter({
+    // Create transporter with correct method
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER,
@@ -87,12 +87,21 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('API Error:', {
+      message: error.message,
+      code: error.code,
+      stack: error.stack,
+      response: error.response,
+      responseCode: error.responseCode
+    });
     
     res.status(500).json({
       error: 'Failed to send email',
       details: error.message,
-      code: error.code || 'UNKNOWN_ERROR'
+      code: error.code || 'UNKNOWN_ERROR',
+      stack: error.stack,
+      response: error.response,
+      responseCode: error.responseCode
     });
   }
 }
