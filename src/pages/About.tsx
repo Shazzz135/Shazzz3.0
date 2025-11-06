@@ -126,6 +126,9 @@ const About: React.FC = () => {
                   <span className="bg-[#2d1847] text-white px-1.5 py-0.5 rounded-full text-sm mb-1 transition-all duration-200 hover:scale-105 hover:bg-[#5b048a] hover:text-[#dfa2e3]">
                     SQL
                   </span>
+                  <span className="bg-[#2d1847] text-white px-1.5 py-0.5 rounded-full text-sm mb-1 transition-all duration-200 hover:scale-105 hover:bg-[#5b048a] hover:text-[#dfa2e3]">
+                    Swift
+                  </span>
                 </div>
               </div>
             )}

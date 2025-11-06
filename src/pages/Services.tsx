@@ -11,7 +11,7 @@ const Services: React.FC = () => {
           display: "inline-block"
         }}
       >
-        My Services
+        Services
       </h1>
       <p className="text-lg text-gray-300 max-w-xl text-center">
         Creating a Start-up?{" "}

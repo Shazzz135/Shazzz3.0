@@ -11,7 +11,7 @@ const Experinces: React.FC = () => {
           display: "inline-block"
         }}
       >
-        My Education
+        Education
       </h1>
       <p className="text-lg text-gray-300 max-w-xl text-center">
         My interest for Developing began in high school where I took several computer science courses. This is what it has led me too so far.
