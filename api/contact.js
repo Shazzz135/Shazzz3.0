@@ -1,3 +1,5 @@
+import { rateLimit } from './rate-limit.js';
+
 export default async function handler(req, res) {
   // Set CORS headers first
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -18,6 +20,11 @@ export default async function handler(req, res) {
   // Only allow POST requests
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
+  // Rate limit: only 2 messages per IP per day
+  if (!rateLimit(req, res)) {
     return;
   }
 

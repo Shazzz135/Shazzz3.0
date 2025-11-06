@@ -40,7 +40,8 @@ const CARD_HEIGHT = 400;
 const Projects: React.FC = () => {
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // Use type 'ReturnType<typeof setTimeout> | null' instead of 'NodeJS.Timeout | null'
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 430);
 
   useEffect(() => {
