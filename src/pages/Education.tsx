@@ -26,7 +26,7 @@ const Experinces: React.FC = () => {
           • Projected Minor: Education
         </span>
         <span className="text-base text-gray-300 mb-1">
-          • (Core Course) GPA: <span className="font-bold text-green-400">3.0</span>
+          • (Core Course) GPA: <span className="font-bold text-green-400">3.3</span>
         </span>
         <span className="text-sm text-gray-400 mb-2">• 2023 - 2027</span>
         <hr className="border-t border-[#5b048a] my-2 w-full" />
