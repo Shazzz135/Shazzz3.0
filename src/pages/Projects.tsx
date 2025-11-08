@@ -4,6 +4,7 @@ import workwiseImg from "../images/workwise.png";
 import tutorspotImg from "../images/tutorspot.png";
 import robImg from "../images/rob.png";
 import bjImg from "../images/bj.png";
+import wordleExtImg from "../images/wordle_ext.png"; // <- NEW import
 
 const PROJECTS = [
   {
@@ -31,6 +32,12 @@ const PROJECTS = [
     title: "Simple Blackjack",
     description: "Simple Blackjack is a blackjack game made in C that displays in the terminal. It features visual cards and special symbols for an engaging experience. Developed as a team project, it demonstrates terminal graphics and collaborative programming.",
     image: bjImg
+  },
+  {
+    title: "Wordle Chrome Extension",
+    description: "Wordle Chrome Extension is basically what it sounds like — an extension that lets you play the daily Wordle directly in your browser. It's made using HTML, CSS, and JavaScript and packaged with Chrome extension assets (manifest, background/content scripts, etc.).",
+    image: wordleExtImg,
+    link: "https://github.com/Shazzz135/Wordle_Chrome_Ext"
   }
 ];
 
@@ -65,8 +72,9 @@ const Projects: React.FC = () => {
   const prev = () => handleSwap((current - 1 + PROJECTS.length) % PROJECTS.length);
   const next = () => handleSwap((current + 1) % PROJECTS.length);
 
-  const isSideBySideFormat = current === 3 || current === 4;
-
+  // Make indices 3, 4 and 5 render in the side-by-side (description-left) layout
+  const isSideBySideFormat = current === 3 || current === 4 || current === 5;
+  
   return (
     <section
       className="flex flex-col items-center justify-center min-h-screen px-2"
@@ -186,7 +194,7 @@ const Projects: React.FC = () => {
                 dangerouslySetInnerHTML={{
                   __html: PROJECTS[current].description.replace(
                     PROJECTS[current].title,
-                    (PROJECTS[current].title === "Workwise" && PROJECTS[current].link)
+                    (PROJECTS[current].link)
                       ? `<a href="${PROJECTS[current].link}" target="_blank" rel="noopener noreferrer" style="color:#a259e6;font-weight:bold;text-decoration:underline;">${PROJECTS[current].title}</a>`
                       : `<span style="font-weight:bold;color:#a259e6;">${PROJECTS[current].title}</span>`
                   )
@@ -236,7 +244,9 @@ const Projects: React.FC = () => {
                     dangerouslySetInnerHTML={{
                       __html: PROJECTS[current].description.replace(
                         PROJECTS[current].title,
-                        `<span style="font-weight:bold;color:#a259e6;">${PROJECTS[current].title}</span>`
+                        (PROJECTS[current].link)
+                          ? `<a href="${PROJECTS[current].link}" target="_blank" rel="noopener noreferrer" style="color:#a259e6;font-weight:bold;text-decoration:underline;">${PROJECTS[current].title}</a>`
+                          : `<span style="font-weight:bold;color:#a259e6;">${PROJECTS[current].title}</span>`
                       )
                     }}
                   />
