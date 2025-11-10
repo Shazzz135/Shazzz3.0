@@ -26,12 +26,14 @@ const PROJECTS = [
   {
     title: "Red or Black",
     description: "Red or Black is an intuition and memory game that is always randomized. Highscores and coins are saved locally, and you can purchase new backgrounds I personally drew. Made with Swift and published on the App Store with 5000+ downloads.",
-    image: robImg
+    image: robImg,
+    link: "https://github.com/Shazzz135/Red-Or-Black"
   },
   {
     title: "Simple Blackjack",
     description: "Simple Blackjack is a blackjack game made in C that displays in the terminal. It features visual cards and special symbols for an engaging experience. Developed as a team project, it demonstrates terminal graphics and collaborative programming.",
-    image: bjImg
+    image: bjImg,
+    link: "https://github.com/Flapjacck/Simple-BlackJack"
   },
   {
     title: "Wordle Chrome Extension",
