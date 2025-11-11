@@ -80,8 +80,10 @@ function App() {
         />
       </div>
 
-      {/* Navbar placed outside .app-content so fixed positioning is viewport-relative */}
-      <Navbar />
+      {/* Navbar: fade in only after contentVisible — keep it outside transforms so fixed works */}
+      <div className={`navbar-fade ${contentVisible ? 'visible' : ''}`} style={{ zIndex: 9999 }}>
+        <Navbar />
+      </div>
 
       {/* App content (always mounted, but hidden until contentVisible) */}
       <div className={`app-content ${contentVisible ? 'visible' : ''}`} style={{ zIndex: 10 }}>
