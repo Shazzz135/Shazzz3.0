@@ -98,3 +98,39 @@
   }
 }
 
+/* Note: .app-shell and .app-content transitions removed to disable fade/translate */
+
+/* Loading overlay and content fade rules */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  opacity: 1;
+  transition: opacity 900ms ease-in-out;
+  pointer-events: auto;
+}
+
+.loading-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* App content initially hidden, then fades in */
+.app-content {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 900ms ease-in-out, transform 900ms ease-in-out;
+  pointer-events: none;
+  position: relative;
+  z-index: 10;
+}
+
+.app-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+

@@ -145,6 +145,12 @@ export default function LiquidEther({
         el.style.width = '100%';
         el.style.height = '100%';
         el.style.display = 'block';
+        // ensure the WebGL canvas does not intercept clicks (we track globally)
+        el.style.pointerEvents = 'none';
+        // position absolutely so it fills the wrapper predictably
+        el.style.position = 'absolute';
+        el.style.left = '0';
+        el.style.top = '0';
         this.clock = new THREE.Clock();
         this.clock.start();
       }
@@ -189,12 +195,19 @@ export default function LiquidEther({
       private _onTouchEnd = this.onTouchEnd.bind(this);
       init(container: HTMLElement) {
         this.container = container;
+        // listen on the container (if pointer-events allow)...
         container.addEventListener('mousemove', this._onMouseMove);
         container.addEventListener('touchstart', this._onTouchStart, { passive: true });
         container.addEventListener('touchmove', this._onTouchMove, { passive: true });
         container.addEventListener('mouseenter', this._onMouseEnter);
         container.addEventListener('mouseleave', this._onMouseLeave);
         container.addEventListener('touchend', this._onTouchEnd);
+        // ...and also listen globally so movement is tracked even when other elements overlay the background
+        // (we still compute coordinates relative to the container rect inside setCoords).
+        window.addEventListener('mousemove', this._onMouseMove);
+        window.addEventListener('touchstart', this._onTouchStart, { passive: true });
+        window.addEventListener('touchmove', this._onTouchMove, { passive: true });
+        window.addEventListener('touchend', this._onTouchEnd);
       }
       dispose() {
         const c = this.container;
@@ -205,6 +218,11 @@ export default function LiquidEther({
         c.removeEventListener('mouseenter', this._onMouseEnter);
         c.removeEventListener('mouseleave', this._onMouseLeave);
         c.removeEventListener('touchend', this._onTouchEnd);
+        // remove global listeners added in init
+        window.removeEventListener('mousemove', this._onMouseMove);
+        window.removeEventListener('touchstart', this._onTouchStart);
+        window.removeEventListener('touchmove', this._onTouchMove);
+        window.removeEventListener('touchend', this._onTouchEnd);
       }
       setCoords(x: number, y: number) {
         if (!this.container) return;
@@ -1103,15 +1121,12 @@ export default function LiquidEther({
 
     const io = new IntersectionObserver(
       entries => {
+        // Update visibility flag but do NOT pause the renderer based on intersection.
+        // Rely on document.visibility (visibilitychange) to pause/resume when the tab is hidden.
         const entry = entries[0];
         const isVisible = entry.isIntersecting && entry.intersectionRatio > 0;
         isVisibleRef.current = isVisible;
-        if (!webglRef.current) return;
-        if (isVisible && !document.hidden) {
-          webglRef.current.start();
-        } else {
-          webglRef.current.pause();
-        }
+        // No start/pause here — avoid pausing when an overlay or modal is covering the canvas.
       },
       { threshold: [0, 0.01, 0.1] }
     );

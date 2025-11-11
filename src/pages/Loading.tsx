@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LiquidEther from '../components/LiquidEther';
 
 // Typing animation with random errors
 const TYPING_TEXT = "Loading Shazzz Web";
@@ -10,7 +9,7 @@ const RevealText: React.FC = () => {
   const [revealed, setRevealed] = useState(0);
 
   useEffect(() => {
-    const duration = 4000; // ms
+    const duration = 2200; // ms (2.2s)
     const steps = TYPING_TEXT.length;
     const intervalTime = duration / steps;
 
@@ -64,23 +63,7 @@ const Loading: React.FC = () => {
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <RevealText />
       </div>
-      <LiquidEther
-        colors={['#a330ba', '#5b048a', '#dfa2e3']}
-        mouseForce={20}
-        cursorSize={100}
-        isViscous={false}
-        viscous={30}
-        iterationsViscous={32}
-        iterationsPoisson={32}
-        resolution={0.5}
-        isBounce={false}
-        autoDemo={true}
-        autoSpeed={0.5}
-        autoIntensity={2.2}
-        takeoverDuration={0.25}
-        autoResumeDelay={3000}
-        autoRampDuration={0.6}
-      />
+      {/* Background handled globally by LiquidEther in App.tsx */}
     </div>
   );
 };

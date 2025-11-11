@@ -155,6 +155,11 @@ const LightRays: React.FC<LightRaysProps> = ({
         containerRef.current.removeChild(containerRef.current.firstChild);
       }
       containerRef.current.appendChild(gl.canvas);
+      // make sure the canvas doesn't capture pointer events and sits absolutely inside the wrapper
+      gl.canvas.style.pointerEvents = 'none';
+      gl.canvas.style.position = 'absolute';
+      gl.canvas.style.left = '0';
+      gl.canvas.style.top = '0';
 
       const vert = `
 attribute vec2 position;
